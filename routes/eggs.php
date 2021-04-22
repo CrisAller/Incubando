@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EggController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EggProjectionController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use App\Http\Controllers\EggProjectionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/pdf/{egg}', [PDFController::class, 'create'])->name('pdf');
 
 Route::get('/companies', [CompanyController::class, 'show'])->name('companies.show');
 Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
@@ -32,3 +34,6 @@ Route::get('/{egg}', [EggController::class, 'delete'])->name('eggs.delete');
 
 Route::get('/projection/{egg}/{projection}', [EggProjectionController::class, 'addWeight'])->name('projection.addweight');
 Route::post('/projection/{egg}/{projection}', [EggProjectionController::class, 'update'])->name('projection.update');
+
+
+

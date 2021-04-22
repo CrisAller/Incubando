@@ -12,12 +12,12 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('eggs.create')" :active="request()->routeIs('eggs.index')">
+                    <x-nav-link :href="route('eggs.create')" :active="request()->routeIs('eggs.create')">
                         {{ __('Nuevo Huevo') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('companies.show')" :active="request()->routeIs('eggs.index')">
+                    <x-nav-link :href="route('companies.show')" :active="request()->routeIs('companies.show')">
                         {{ __('Empresa') }}
                     </x-nav-link>
                 </div>

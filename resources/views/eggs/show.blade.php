@@ -6,16 +6,23 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="text-right">
+                <form action="{{ route('pdf',['egg' => $egg]) }}" method="post" id="formPdf">
+                    @csrf
+                    <input type="hidden" name="pdfProjection" id="pdfProjection" value="2">
+                    <input type="submit" value="Generar PDF" id="generedPdf" class="bg-gray-700 text-white pl-5 pr-5 cursor-pointer">
+                </form>
+            </div>
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    <table class="min-w-min w-1/2 table-auto mt-6 mx-auto">
+                    <table class="min-w-min md-w-1/2 table-auto mt-6 mx-auto">
                         <thead>
                             <tr class="bg-green-100 text-green-900 uppercase text-sm leading-normal mx-auto">
                                 <th class="rounded-l-2xl py-3 px-6 text-center mx-auto">Comienzo de incubación <br />
                                     <span class="font-medium mx-auto">{{ $egg->starting_date->format('d-m-Y') }}</span>
                                 </th>
-                                <th class="py-3 px-6 text-left text-center mx-auto">Peso inicial <br />
+                                <th class="py-3 px-6 text-center mx-auto">Peso inicial <br />
                                     <span class="font-medium mx-auto lowercase">{{ $egg->formatted_startingWeight }}</span>
                                 </th>
                                 <th class="rounded-r-2xl py-3 px-6 text-center mx-auto">Pic<br />
@@ -26,21 +33,16 @@
                     </table>
 
                     {{-- *********************** CHART *************************** --}}
-                    <div class="overflow-hidden flex items-center justify-center mt-6" >
+                    <div class="flex items-center justify-center mt-6" >
                         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
                         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
                         <div class="w-full items-center justify-center px-5 py-5">
-                            <div class="rounded shadow-xl overflow-hidden w-full" x-data="{stockTicker:stockTicker()}" x-init="stockTicker.renderChart()">
+                            <div class="rounded shadow-xl w-full" x-data="{stockTicker:stockTicker()}" x-init="stockTicker.renderChart()">
                                 <div class="w-full text-black items-center">
                                     <canvas id="chart2" class="w-full h-1/2"></canvas>
                                 </div>
                             </div>
-                            {{-- <div class="flex justify-around pt-3">
-                                <div class="text-yellow-700">Peso máximo</div>
-                                <div class="text-green-800">Peso real</div>
-                                <div class="text-blue-700">Peso mínimo</div>
-                            </div> --}}
                         </div>
                     </div>
                     {{-- *********************** FIN CHART *************************** --}}
@@ -199,6 +201,7 @@
         var misbirth = <?= $misbirth ?>;
         var real_pic_date = <?= $real_pic_date ?>;
         var birth = <?= $birth ?>;
+
         let stockTicker = function(){
             return {
                 chartData: {
@@ -223,9 +226,12 @@
                         c.destroy();
                     }
 
-                    let ctx = document.getElementById('chart2').getContext('2d');
+                    var ctx = document.getElementById('chart2').getContext('2d');
 
-                    let chart = new Chart(ctx, {
+// var dataUrl = ctx['canvas'].toDataURL('image/png');
+// console.log(dataUrl);
+
+                    var chart = new Chart(ctx, {
                         type: "line",
                         data: {
                             labels: this.chartData.labels,
@@ -310,9 +316,12 @@
                             }
                         }
                     });
+
                 }
             }
         }
+
+
 
     // *********** FIN CHART **********
 
@@ -320,6 +329,12 @@
 
         $(".addWeight").click(function(e){
             $(this).next().toggle();
+        })
+
+        $("#generedPdf").click( function(){
+            var canva = $('#chart2');
+            var image = canva[0].toDataURL();
+            $("#pdfProjection").val(image);
         })
 
     });

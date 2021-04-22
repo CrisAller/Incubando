@@ -37,7 +37,7 @@ class UpdateCompanyRequest extends FormRequest
     {
         return [
             'name.required' => 'Error en el nombre',
-            'city.required' => 'Error en la ciudad'
+            'city.required' => 'Debe introducir la ciudad'
         ];
     }
 

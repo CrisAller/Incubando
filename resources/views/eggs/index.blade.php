@@ -8,19 +8,39 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
+                <!-- <div class="flex justify-end items-end">
+                    <a
+                        class="inline-flex items-right px-4 py-2 mx-2 bg-green-800 border border-transparent
+                        rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700
+                        active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300
+                        disabled:opacity-25 transition ease-in-out duration-150"
+                        href="{{ route('eggs.create') }}"
+                    >
+                        Nuevo Huevo
+                    </a>
+                    <a
+                        class="inline-flex px-4 py-2 bg-green-800 border border-transparent
+                        rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700
+                        active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300
+                        disabled:opacity-25 transition ease-in-out duration-150"
+                        href="{{ route('companies.show') }}"
+                    >
+                        Empresa
+                    </a>
+                </div> -->
                 @if ($eggs->isEmpty())
                     <p>No hay Referencias</p>
                 @else
-                    <table class="min-w-max w-full table-auto mt-6">
+                    <table id="orderColum" class="min-w-max w-full table-auto mt-6 pt-6">
                         <thead>
                             <tr class="bg-green-800 text-white uppercase text-sm leading-normal">
-                                <th class="py-3 px-6 text-left">Referencia</th>
-                                <th class="py-3 px-6 text-left">Especie</th>
-                                <th class="py-3 px-6 text-center">Día de incubación</th>
-                                <th class="py-3 px-6 text-center">Peso</th>
-                                <th class="py-3 px-6 text-center">Fecha de recogida</th>
-                                <th class="py-3 px-6 text-center">Pic</th>
-                                <th class="py-3 px-6 text-center">Estado</th>
+                                <th data-priority="1" class="py-3 px-6 text-left">Referencia</th>
+                                <th data-priority="2" class="py-3 px-6 text-left">Especie</th>
+                                <th data-priority="3" class="py-3 px-6 text-center">Día de incubación</th>
+                                <th data-priority="4" class="py-3 px-6 text-center">Peso</th>
+                                <th data-priority="5" class="py-3 px-6 text-center">Fecha de recogida</th>
+                                <th data-priority="6" class="py-3 px-6 text-center">Pic</th>
+                                <th data-priority="7" class="py-3 px-6 text-center">Estado</th>
                                 <th class="py-3 px-6 text-center">Acción</th>
                             </tr>
                         </thead>
@@ -103,8 +123,24 @@
         </div>
     </div>
 </div>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!--Datatables -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
+
+        var table = $('#orderColum').DataTable( {
+                responsive: true,
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
+                }
+            } )
+            .columns.adjust()
+            .responsive.recalc();
+
         $(".delete-egg").click(function(){
             var link = $(this).data('href');
             var reference = $(this).data('ref');

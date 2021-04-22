@@ -60,6 +60,9 @@ class EggProjectionController extends Controller
                 'egg_id' => $egg->id,
                 'user_id' => auth()->user()->id,
             ];
+            if($projection->incubation_day == $egg->incubation_day){
+                $eggProjection += ['real_weight' => $egg->weight];
+            }
             $projection->update($eggProjection);
         }
         return $initial_data;
@@ -126,21 +129,21 @@ class EggProjectionController extends Controller
 
             if($projection->incubation_date == $egg->birth){
                 $state = 'Nacido';
-                $class = 'bg-green-200 text-green-600';
+                $class = 'bg-green-200 text-green-600 birth';
             }elseif($projection->incubation_date == $egg->misbirth  && $projection->incubation_date != $egg->real_pic_date){
                 $state = 'Abortado';
-                $class = 'bg-red-200 text-red-600';
+                $class = 'bg-red-200 text-red-600 misbirth';
             }elseif($projection->incubation_date == $egg->real_pic_date){
                 $state = 'Pic';
-                $class = 'bg-blue-200 text-blue-600';
+                $class = 'bg-blue-200 text-blue-600 pic';
             }elseif(($projection->incubation_date < $egg->collection_date && $projection->incubation_date < $egg->misbirth && $projection->incubation_date != $egg->real_pic_date)
                 || ($projection->incubation_date < $egg->collection_date && $projection->incubation_date < $egg->birth && $projection->incubation_date != $egg->real_pic_date) ){
                 $state = 'En nido';
-                $class = 'bg-gray-200 text-gray-600';
+                $class = 'bg-gray-200 text-gray-600 in_nest';
             }elseif (($projection->incubation_date < Carbon::now() && $projection->incubation_date < $egg->misbirth && $projection->incubation_date != $egg->real_pic_date)
                 || ($projection->incubation_date < Carbon::now() && $projection->incubation_date < $egg->birth && $projection->incubation_date != $egg->real_pic_date)){
                 $state = 'Incubando';
-                $class = 'bg-yellow-200 text-yellow-600';
+                $class = 'bg-yellow-200 text-yellow-600 incubating';
             }else{
                 $state = '';
                 $class = '';
@@ -148,16 +151,16 @@ class EggProjectionController extends Controller
         }else{
             if($projection->incubation_date == $egg->birth){
                 $state = 'Nacido';
-                $class = 'bg-green-200 text-green-600';
+                $class = 'bg-green-200 text-green-600 birth';
             }elseif($projection->incubation_date == $egg->real_pic_date){
                 $state = 'Pic';
-                $class = 'bg-blue-200 text-blue-600';
+                $class = 'bg-blue-200 text-blue-600 pic';
             }elseif($projection->incubation_date < $egg->collection_date  && $projection->incubation_date != $egg->real_pic_date){
                 $state = 'En nido';
-                $class = 'bg-gray-200 text-gray-600';
+                $class = 'bg-gray-200 text-gray-600 in_nest';
             }elseif ($projection->incubation_date < Carbon::now()  && $projection->incubation_date != $egg->real_pic_date){
                 $state = 'Incubando';
-                $class = 'bg-yellow-200 text-yellow-600';
+                $class = 'bg-yellow-200 text-yellow-600 incubating';
             }else{
                 $state = '';
                 $class = '';

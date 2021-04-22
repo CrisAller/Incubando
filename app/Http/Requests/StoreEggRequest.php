@@ -41,7 +41,7 @@ class StoreEggRequest extends FormRequest
             'weight.required' => 'Es necesario introducier el peso',
             'weight.numeric' => 'El peso ha de ser un número entre 1 y 99.999',
             'collection_date.required' => 'Es necesario introducir la fecha de recogida del huevo',
-            'incubation_day.required' => 'El necesario indicar el día de incubación',            
+            'incubation_day.required' => 'Es necesario indicar el día de incubación',
             'incubation_day.numeric' => 'El día de incubación ha de ser un número entero entre 1 y 33',
             'specie.required' => 'Es necesario seleccionar una especie',
             'specie.numeric' => 'Es necesario seleccionar una especie',

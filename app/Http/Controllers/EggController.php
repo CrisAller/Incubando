@@ -55,7 +55,7 @@ class EggController extends Controller
 
     public function show(Egg $egg)
     {
-       $data_chart = $this->dataChart($egg);
+       $data_chart = EggController::dataChart($egg);
 
         return view('eggs.show')->with([
             'egg' => Egg::where('id', $egg->id)->with('specie')->first(),
@@ -70,7 +70,7 @@ class EggController extends Controller
         ]);
     }
 
-    private function dataChart(Egg $egg)
+    public static function dataChart(Egg $egg)
     {
         $data = EggProjection::where('egg_id', $egg->id)->orderBy('incubation_day')->get();
         $real_weight = [];
