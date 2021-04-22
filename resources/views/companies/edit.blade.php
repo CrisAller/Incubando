@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    
+
                     <form action="{{ route('companies.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @foreach ($errors->all() as $error)
@@ -18,22 +18,22 @@
                          <!-- name company -->
                         <div class="mt-4">
                             <x-label for="name" :value="__('Nombre')" />
-                            <input id="name" class="block mt-1 w-full" type="text" name="reference" value="{{$company->name }}" required autofocus />                        
+                            <input id="name" class="block mt-1 w-full" type="text" name="name" value="{{$company->name }}" required autofocus />
                         </div>
                         <!-- address company -->
                         <div class="mt-4">
                             <x-label for="address" :value="__('Dirección')" />
-                            <input id="address" class="block mt-1 w-full" type="text" name="reference" value="{{$company->address }}" required autofocus />                        
+                            <input id="address" class="block mt-1 w-full" type="text" name="address" value="{{$company->address }}" required autofocus />
                         </div>
                         <!-- city company -->
                         <div class="mt-4">
                             <x-label for="city" :value="__('Ciudad')" />
-                            <input id="city" class="block mt-1 w-full" type="text" name="reference" value="{{$company->city }}" required autofocus />                        
+                            <input id="city" class="block mt-1 w-full" type="text" name="city" value="{{$company->city }}" required autofocus />
                         </div>
                         <!-- cif company -->
                         <div class="mt-4">
                             <x-label for="cif" :value="__('Dirección')" />
-                            <input id="cif" class="block mt-1 w-full" type="text" name="reference" value="{{$company->cif }}" required autofocus />                        
+                            <input id="cif" class="block mt-1 w-full" type="text" name="cif" value="{{$company->cif }}" required autofocus />
                         </div>
                         <!-- logo company -->
                         <div class="mt-4">
@@ -46,8 +46,8 @@
                             <x-button class="ml-4">
                                     {{ __('Actualizar') }}
                             </x-button>
-                        </div>                       
-                    </form>                   
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
